@@ -1,0 +1,314 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* optional app overrides */
+
+html, body, #root { height: 100%; }
+body { font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+/* ...existing tailwind directives ... */
+
+/* sparkline draw */
+.sparkline-path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawLine 900ms ease forwards;
+}
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* shimmer for stat underline */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.stat-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+
+/* keep existing animate-fadeIn/slideUp/pulse/bounce from other pages */
+/* micro entrance for cards */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideUp { animation: slideUp 420ms cubic-bezier(.16,.1,.3,1) forwards; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 360ms cubic-bezier(.2,.9,.3,1) forwards; }
+
+/* subtle shimmer for stat cards */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.stat-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.4s linear infinite;
+}
+
+/* small bounce for icons */
+@keyframes microBounce {
+  0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}
+}
+.animate-microBounce { animation: microBounce 1.8s infinite; }
+
+/* entry animations used by member pages */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 360ms cubic-bezier(.2,.9,.3,1) forwards; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideUp { animation: slideUp 420ms cubic-bezier(.16,.1,.3,1) forwards; }
+
+/* subtle card hover lift */
+.card-hover { transition: transform .28s ease, box-shadow .28s ease; }
+.card-hover:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(2,6,23,0.08); }
+
+/* content transition helper for view swaps */
+.view-enter { opacity: 0; transform: translateY(8px); animation: viewIn .36s ease forwards; }
+@keyframes viewIn { to { opacity: 1; transform: translateY(0); } }
+
+/* Input focus animation */
+input:focus, textarea:focus {
+  animation: inputFocus 0.3s ease;
+}
+@keyframes inputFocus {
+  from { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0); }
+  to { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+}
+
+/* Button press animation */
+button:active { animation: buttonPress 0.15s ease; }
+@keyframes buttonPress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+/* Icon emoji hover bounce */
+.emoji-bounce:hover {
+  animation: emojiBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+@keyframes emojiBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Pulse animation for status indicator */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* Smooth plan card hover */
+.plan-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.plan-card:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Button press on membership actions */
+button:active {
+  animation: buttonPress 0.15s ease;
+}
+
+@keyframes buttonPress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+/* Notice card hover lift */
+.notice-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease;
+}
+.notice-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+}
+
+/* Smooth badge animations */
+.badge-pulse {
+  animation: badgePulse 2s infinite;
+}
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+/* Icon bounce */
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.icon-bounce {
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+/* Priority indicator glow */
+.priority-glow {
+  position: relative;
+}
+.priority-glow::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 0 2px 2px 0;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 10px currentColor; }
+  50% { opacity: 1; box-shadow: 0 0 20px currentColor; }
+}
+
+/* Document card hover effects */
+.doc-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.doc-card:hover {
+  transform: translateY(-6px) scale(1.01);
+}
+
+/* Icon hover rotation */
+.doc-icon-hover {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.doc-icon-hover:hover {
+  transform: scale(1.15) rotate(12deg);
+}
+
+/* Receipt card animation */
+.receipt-card {
+  position: relative;
+  overflow: hidden;
+}
+.receipt-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmerEffect 2s infinite;
+}
+@keyframes shimmerEffect {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Dashed border animation */
+.dashed-border {
+  border: 2px dashed;
+  animation: dashBounce 0.8s ease-in-out infinite;
+}
+@keyframes dashBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.01); }
+}
+
+/* Smooth button transitions */
+button {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+button:active {
+  animation: buttonPress 0.15s ease;
+}
+@keyframes buttonPress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+/* File size badge pulse */
+.size-badge {
+  animation: sizePulse 2s ease-in-out infinite;
+}
+@keyframes sizePulse {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Toggle switch smooth animation */
+button[role="switch"] {
+  transition: background-color 0.3s ease;
+}
+
+/* Password input focus glow */
+input[type="password"],
+input[type="text"] {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+input:focus {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+/* Settings card hover lift */
+.settings-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.settings-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Theme color button animation */
+.theme-btn {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.theme-btn:hover {
+  transform: scale(1.3) rotate(15deg);
+}
+
+/* Danger zone pulse */
+.danger-zone {
+  animation: dangerPulse 3s ease-in-out infinite;
+}
+@keyframes dangerPulse {
+  0%, 100% { border-color: rgba(239, 68, 68, 0.3); }
+  50% { border-color: rgba(239, 68, 68, 0.6); }
+}
+
+/* Toggle switch */
+.toggle-switch { width:56px; height:32px; border-radius:32px; display:inline-block; position:relative; cursor:pointer; }
+.toggle-slider { position:absolute; inset:0; border-radius:32px; background:#d1d5db; transition:background .25s ease; }
+.toggle-slider::after { content:''; position:absolute; left:4px; top:3px; width:26px; height:26px; background:white; border-radius:50%; box-shadow:0 3px 8px rgba(2,6,23,.08); transition:transform .25s cubic-bezier(.2,.9,.3,1); }
+.toggle-slider.on { background:linear-gradient(90deg,#10b981,#06b6d4); }
+.toggle-slider.on::after { transform:translateX(24px); }
+
+/* password strength colors already used (bg-rose-400, bg-amber-400, bg-emerald-400) */
+
+/* spinner (for small saving indicator) */
+.spinner { width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,0.2); border-top-color:rgba(255,255,255,0.9); animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* small toast & entrance animations */
+@keyframes slideUpFast { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0);} }
+.animate-slideUp { animation: slideUpFast 360ms cubic-bezier(.16,.8,.3,1) forwards; }
+
+/* subtle card hover */
+.bg-white.rounded-xl:hover { box-shadow:0 10px 30px rgba(2,6,23,0.06); transform: translateY(-4px); transition: all .25s ease; }
+
+/* quick fade used for saved indicator */
+@keyframes fadeIn { from { opacity:0; transform:translateY(6px);} to { opacity:1; transform:translateY(0);} }
+.animate-fadeIn { animation: fadeIn 360ms ease forwards; }
+
