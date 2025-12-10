@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import MemberSidebar from "../components/MemberSidebar";
 import MemberTopbar from "../components/MemberTopbar";
+import Logo from "../components/Logo";
 
 const CONTENT = {
   Dashboard: () => (
@@ -1177,6 +1179,14 @@ export default function MemberPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <nav className="navbar bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+          <Logo size="md" to="/" />
+          <div className="flex gap-2">
+            <Link to="/" className="btn btn-outline-sm">Back Home</Link>
+          </div>
+        </div>
+      </nav>
       <MemberSidebar active={active} onChange={setActive} />
       <div className="ml-64">
         <MemberTopbar title={active} />

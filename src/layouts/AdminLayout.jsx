@@ -1,34 +1,48 @@
 import React from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import AdminSidebar from "../components/AdminSidebar";
 import AdminTopbar from "../components/AdminTopbar";
+// import logo from assets (put your logo file at src/assets/mononemotlobImage.png)
+import mononeLogo from "../assets/mononemotlobImage.jpg";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.clear(); // clear all auth data
-    navigate("/", { replace: true });
+    localStorage.removeItem("userRole");
+    navigate("/");
   };
 
   return (
-    <div className="flex">
-      <AdminSidebar />
-      <AdminTopbar />
+    <div className="flex h-screen bg-gray-100">
+      {/* Sidebar */}
+      <aside className="w-64 bg-white shadow-md overflow-y-auto">
+        <div className="p-4 border-b flex items-center gap-3">
+          {/* asset logo + brand text */}
+          <img src={mononeLogo} alt="Monone Matlab" className="w-10 h-10 object-contain rounded-full" />
+          <div>
+            <div className="text-sm font-bold">MONONEMOTLOB</div>
+            <div className="text-xs text-gray-500">Admin</div>
+          </div>
+        </div>
 
-      {/* sidebar */}
-      <aside>
-        <button onClick={handleLogout} className="text-red-600">
-          Logout
-        </button>
+        <AdminSidebar />
+
+        <div className="p-4 border-t mt-auto">
+          <button onClick={handleLogout} className="w-full btn btn-outline text-sm">
+            Logout
+          </button>
+        </div>
       </aside>
 
-      {/* main content: account for sidebar width and topbar height */}
-      <main className="ml-64 pt-14 min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto p-6">
+      {/* Main content */}
+      <div className="flex-1 flex flex-col">
+        <AdminTopbar />
+        <main className="flex-1 overflow-y-auto p-6 pt-16">
           <Outlet />
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }

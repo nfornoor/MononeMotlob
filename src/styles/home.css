@@ -1,0 +1,91 @@
+.hero {
+  position: relative;
+  color: white;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/hero.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.45);
+  transform: scale(1.02);
+  transition: transform 700ms ease;
+}
+
+.hero:hover .hero-bg { transform: scale(1.05); }
+
+/* slider images */
+.hero-slider { position: absolute; inset: 0; }
+.hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .8s ease, transform .9s ease; }
+
+/* arrows */
+.hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 20; width: 44px; height: 44px; border-radius: 999px; background: rgba(0,0,0,0.45); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 24px; border: none; cursor: pointer; }
+.hero-arrow-left { left: 16px; }
+.hero-arrow-right { right: 16px; }
+.hero-arrow:hover { background: rgba(0,0,0,0.6); transform: translateY(-50%) scale(1.04); }
+
+/* dots */
+.hero-dots { z-index: 22; }
+.hero-dot { width: 10px; height: 10px; background: rgba(255,255,255,0.45); border: none; cursor: pointer; }
+.hero-dot-active { background: #fff; box-shadow: 0 0 0 4px rgba(255,255,255,0.08); transform: scale(1.15); }
+
+/* overlay */
+.hero-overlay { pointer-events: none; }
+
+/* content should be above slider */
+.hero-inner { position: relative; z-index: 30; }
+
+.btn { display:inline-block; padding:0.6rem 1.1rem; border-radius:8px; text-decoration:none; }
+.btn-primary { background:#111827; color:#fff; }
+.btn-outline { background:transparent; border:1px solid rgba(255,255,255,0.25); color:#fff; }
+.btn-dark { background:#111827; color:#fff; }
+.btn-outline-sm { background: transparent; border: 1px solid #111827; color: #111827; padding: 0.5rem 0.8rem; border-radius: 6px; font-size: 0.875rem; }
+.btn-outline-sm:hover { background: #111827; color: white; }
+.btn-primary-sm { background: #111827; color: white; padding: 0.5rem 0.8rem; border-radius: 6px; font-size: 0.875rem; }
+.btn-primary-sm:hover { background: #000; }
+
+.stat-card { min-width:160px; }
+
+.scroll-indicator { display:flex; justify-content:center; }
+.scroll-indicator .dot { width:36px; height:36px; border-radius:999px; border:2px solid rgba(255,255,255,0.3); display:inline-block; position:relative; }
+.scroll-indicator .dot::after { content:''; position:absolute; left:50%; top:10px; width:6px; height:6px; background:white; border-radius:50%; transform:translateX(-50%); animation: scrollDot 1.6s infinite; opacity:0.95; }
+
+@keyframes scrollDot {
+  0% { transform: translate(-50%, 0); opacity:1; }
+  50% { transform: translate(-50%, 10px); opacity:0.6; }
+  100% { transform: translate(-50%, 0); opacity:1; }
+}
+
+/* small card entrance */
+@keyframes cardUp { from { transform: translateY(12px); opacity: 0 } to { transform: translateY(0); opacity:1 } }
+.animate-card-up { animation: cardUp 420ms cubic-bezier(.2,.9,.2,1) both; }
+@keyframes heroFade { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
+.animate-hero-fade { animation: heroFade 700ms ease both; }
+@keyframes heroUp { from { transform: translateY(6px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+.animate-hero-up { animation: heroUp 900ms cubic-bezier(.2,.9,.2,1) both; }
+
+/* card base */
+.card { display:flex; flex-direction:column; min-height:220px; }
+.input { padding:0.6rem 0.8rem; border:1px solid #e5e7eb; border-radius:8px; background:#fff; }
+
+.navbar { box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+
+/* slider styles */
+.image-slider { max-width: 960px; margin: 0 auto; }
+.slider-track { height: 14rem; } /* adjust height as needed */
+.slider-slide { top: 0; left: 0; right: 0; bottom: 0; object-fit: cover; }
+.slider-dots button { border: none; cursor: pointer; transition: transform .15s; }
+.slider-dots button:hover { transform: scale(1.2); }
+
+/* ensure slider looks good on small screens */
+@media (max-width: 768px) {
+  .slider-track { height: 10.5rem; }
+}
+
+@media (max-width: 640px) {
+  .hero { height: 60vh; }
+  .hero-arrow { width: 36px; height: 36px; font-size: 18px; }
+}

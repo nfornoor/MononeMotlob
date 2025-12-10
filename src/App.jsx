@@ -4,7 +4,8 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminDashboard from "./pages/admin";
 import MemberDashboard from "./pages/MemberDashboard";
 import MemberPage from "./pages/MemberPage";
-
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -14,11 +15,20 @@ import Projects from "./pages/Projects";
 import Donations from "./pages/Donations";
 import Programs from "./pages/Programs";
 import Reports from "./pages/Reports";
+import Home from "./pages/Home";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<MainPage />} />
+      {/* Landing page */}
+      <Route path="/" element={<Home />} />
+      
+      {/* Auth pages */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
+
+      {/* Member routes */}
+      <Route path="/member" element={<MemberPage />} />
       <Route
         path="/member/dashboard"
         element={
@@ -27,9 +37,8 @@ export default function App() {
           </ProtectedRoute>
         }
       />
-      <Route path="/member" element={<MemberPage />} />
 
-      {/* Admin area uses fixed sidebar + topbar from AdminLayout */}
+      {/* Admin area */}
       <Route
         path="/admin/*"
         element={
@@ -46,10 +55,10 @@ export default function App() {
         <Route path="donations" element={<Donations />} />
         <Route path="programs" element={<Programs />} />
         <Route path="reports" element={<Reports />} />
-        {/* other admin routes */}
         <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />
       </Route>
 
+      {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

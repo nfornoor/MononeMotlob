@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import img from "../assets/mononemotlobImage.jpg";
 import {
   Grid,
   Users,
@@ -39,14 +40,16 @@ export default function AdminSidebar() {
           <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-blue-800 flex items-center justify-center text-white font-bold">
             MM
           </div>
-          <div className="font-medium">Admin Panel</div>
+          <div className="font-medium">
+            <h1>ADMIN</h1>
+          </div>
         </div>
       </div>
 
       <div className="p-4 border-b">
         <div className="flex items-center gap-3">
           <img
-            src="https://via.placeholder.com/40"
+            src={img}
             alt="user"
             className="w-10 h-10 rounded-full"
           />
