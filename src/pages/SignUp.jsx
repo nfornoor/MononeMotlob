@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import mononeLogo from "../assets/mononemotlobImage.jpg";
 
+const API_BASE = "http://localhost:8000/api";
+
 export default function SignUp() {
   const [form, setForm] = useState({
     name: "",
@@ -14,6 +16,7 @@ export default function SignUp() {
     terms: false,
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,21 +30,40 @@ export default function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match!");
+      setError("Passwords do not match!");
       return;
     }
     if (!form.education || !form.location || !form.terms) {
-      alert("Please accept all terms and conditions");
+      setError("Please accept all terms and conditions");
       return;
     }
     setLoading(true);
-    // Mock signup - replace with real API call
-    setTimeout(() => {
-      localStorage.setItem("userRole", "member");
-      localStorage.setItem("userEmail", form.email);
-      navigate("/member/dashboard");
+    setError("");
+
+    try {
+      const res = await fetch(`${API_BASE}/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.detail || "Sign up failed");
+      }
+
+      const data = await res.json();
+      // auto-login: store token + user and go to member page
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("userRole", data.user.role);
+      localStorage.setItem("userEmail", data.user.email);
+
+      navigate("/member");
+    } catch (err) {
+      setError(err.message);
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
@@ -68,6 +90,13 @@ export default function SignUp() {
             <h1 className="text-2xl font-bold">Sign Up</h1>
             <p className="text-gray-600 text-sm mt-1">Become a member of Monone Matlab</p>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-lg text-sm text-center">
+              {error}
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSignUp} className="space-y-4">

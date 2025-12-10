@@ -27,6 +27,9 @@ export default function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
 
+      {/* Donations (NEW multi-step) */}
+      <Route path="/donations" element={<Donations />} />
+
       {/* Member routes */}
       <Route path="/member" element={<MemberPage />} />
       <Route

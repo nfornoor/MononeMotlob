@@ -2,22 +2,48 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import mononeLogo from "../assets/mononemotlobImage.jpg";
 
+const API_BASE = "http://localhost:8000/api";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Mock login - replace with real API call
-    setTimeout(() => {
-      localStorage.setItem("userRole", "member");
-      localStorage.setItem("userEmail", email);
-      navigate("/member/dashboard");
+    setError("");
+
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.detail || "Login failed");
+      }
+
+      const data = await res.json();
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("userRole", data.user.role);
+      localStorage.setItem("userEmail", data.user.email);
+
+      // redirect based on role
+      if (data.user && data.user.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/member");
+      }
+    } catch (err) {
+      setError(err.message);
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
@@ -53,6 +79,8 @@ export default function Login() {
 
           {/* Form */}
           <form onSubmit={handleLogin} className="space-y-4">
+            {error && <div className="p-3 bg-red-100 text-red-700 rounded text-sm">{error}</div>}
+
             <div>
               <label className="block text-sm font-medium mb-2">Email</label>
               <div className="flex items-center border rounded-lg px-3 py-2 bg-gray-50">
