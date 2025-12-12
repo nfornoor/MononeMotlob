@@ -72,6 +72,7 @@ export default function MemberPage() {
     { label: "Donations", icon: "❤️" },
     { label: "Projects", icon: "📁" },
     { label: "Settings", icon: "⚙️" },
+    
   ];
 
   // Render content based on active tab
@@ -174,6 +175,17 @@ export default function MemberPage() {
         return (
           <div>
             <h2 className="text-2xl font-bold mb-6">My Donations</h2>
+            
+            {/* Donate Button */}
+            <div className="mb-6">
+              <button
+                onClick={() => navigate("/donations")}
+                className="px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-lg font-semibold hover:from-red-700 hover:to-pink-700 transition"
+              >
+                ❤️ Make a New Donation
+              </button>
+            </div>
+
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <table className="w-full">
                 <thead>
@@ -266,6 +278,7 @@ export default function MemberPage() {
             </div>
           </div>
         );
+      
 
       default:
         return <div>Select a page</div>;
